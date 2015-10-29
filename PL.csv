@@ -1,0 +1,312 @@
+fecha;equipoL;equipoV;gL;gV;equipoGanador;Blocal;Btied;Baway
+1;Blackburn Rover;Wolverhampton W;1;2;Wolverhampton W;;;
+1;Fulham;Aston Villa;0;0;;;;
+1;Liverpool;Sunderland;1;1;;;;
+1;Queens Park Ran;Bolton Wanderer;0;4;Bolton Wanderer;;;
+1;Wigan Athletic;Norwich City;1;1;;;;
+1;Stoke City;Chelsea;0;0;;;;
+1;West Bromwich;Manchester Unit;1;2;Manchester Unit;;;
+1;Manchester City;Swansea City;4;0;Manchester City;;;
+1;Newcastle Unite;Arsenal;0;0;;;;
+1;Tottenham;Everton;2;0;Tottenham;;;
+2;Aston Villa;Blackburn Rover;3;1;Aston Villa;;;
+2;Everton;Queens Park Ran;0;1;Queens Park Ran;;;
+2;Swansea City;Wigan Athletic;0;0;;;;
+2;Chelsea;West Bromwich;2;1;Chelsea;;;
+2;Sunderland;Newcastle Unite;0;1;Newcastle Unite;;;
+2;Arsenal;Liverpool;0;2;Liverpool;;;
+2;Bolton Wanderer;Manchester City;2;3;Manchester City;;;
+2;Norwich City;Stoke City;1;1;;;;
+2;Wolverhampton W;Fulham;2;0;Wolverhampton W;;;
+2;Manchester Unit;Tottenham;3;0;Manchester Unit;;;
+3;Chelsea;Norwich City;3;1;Chelsea;;;
+3;Blackburn Rover;Everton;0;1;Everton;;;
+3;Swansea City;Sunderland;0;0;;;;
+3;Liverpool;Bolton Wanderer;3;1;Liverpool;;;
+3;Aston Villa;Wolverhampton W;0;0;;;;
+3;Wigan Athletic;Queens Park Ran;2;0;Wigan Athletic;;;
+3;West Bromwich;Stoke City;0;1;Stoke City;;;
+3;Manchester Unit;Arsenal;8;2;Manchester Unit;;;
+3;Newcastle Unite;Fulham;2;1;Newcastle Unite;;;
+3;Tottenham;Manchester City;1;5;Manchester City;;;
+4;Arsenal;Swansea City;1;0;Arsenal;;;
+4;Everton;Aston Villa;2;2;;;;
+4;Manchester City;Wigan Athletic;3;0;Manchester City;;;
+4;Sunderland;Chelsea;1;2;Chelsea;;;
+4;Wolverhampton W;Tottenham;0;2;Tottenham;;;
+4;Stoke City;Liverpool;1;0;Stoke City;;;
+4;Bolton Wanderer;Manchester Unit;0;5;Manchester Unit;;;
+4;Fulham;Blackburn Rover;1;1;;;;
+4;Norwich City;West Bromwich;0;1;West Bromwich;;;
+4;Queens Park Ran;Newcastle Unite;0;0;;;;
+5;Aston Villa;Newcastle Unite;1;1;;;;
+5;Everton;Wigan Athletic;3;1;Everton;;;
+5;Sunderland;Stoke City;4;0;Sunderland;;;
+5;Bolton Wanderer;Norwich City;1;2;Norwich City;;;
+5;Fulham;Manchester City;2;2;;;;
+5;Wolverhampton W;Queens Park Ran;0;3;Queens Park Ran;;;
+5;Swansea City;West Bromwich;3;0;Swansea City;;;
+5;Blackburn Rover;Arsenal;4;3;Blackburn Rover;;;
+5;Manchester Unit;Chelsea;3;1;Manchester Unit;;;
+5;Tottenham;Liverpool;4;0;Tottenham;;;
+6;Arsenal;Bolton Wanderer;3;0;Arsenal;;;
+6;Chelsea;Swansea City;4;1;Chelsea;;;
+6;Liverpool;Wolverhampton W;2;1;Liverpool;;;
+6;Newcastle Unite;Blackburn Rover;3;1;Newcastle Unite;;;
+6;West Bromwich;Fulham;0;0;;;;
+6;Wigan Athletic;Tottenham;1;2;Tottenham;;;
+6;Stoke City;Manchester Unit;1;1;;;;
+6;Manchester City;Everton;2;0;Manchester City;;;
+6;Queens Park Ran;Aston Villa;1;1;;;;
+6;Norwich City;Sunderland;2;1;Norwich City;;;
+7;Aston Villa;Wigan Athletic;2;0;Aston Villa;;;
+7;Manchester Unit;Norwich City;2;0;Manchester Unit;;;
+7;Sunderland;West Bromwich;2;2;;;;
+7;Blackburn Rover;Manchester City;0;4;Manchester City;;;
+7;Fulham;Queens Park Ran;6;0;Fulham;;;
+7;Wolverhampton W;Newcastle Unite;1;2;Newcastle Unite;;;
+7;Swansea City;Stoke City;2;0;Swansea City;;;
+7;Everton;Liverpool;0;2;Liverpool;;;
+7;Tottenham;Arsenal;2;1;Tottenham;;;
+7;Bolton Wanderer;Chelsea;1;5;Chelsea;;;
+8;Arsenal;Sunderland;2;1;Arsenal;;;
+8;Norwich City;Swansea City;3;1;Norwich City;;;
+8;Queens Park Ran;Blackburn Rover;1;1;;;;
+8;Wigan Athletic;Bolton Wanderer;1;3;Bolton Wanderer;;;
+8;Stoke City;Fulham;2;0;Stoke City;;;
+8;Chelsea;Everton;3;1;Chelsea;;;
+8;Liverpool;Manchester Unit;1;1;;;;
+8;Newcastle Unite;Tottenham;2;2;;;;
+8;West Bromwich;Wolverhampton W;2;0;West Bromwich;;;
+8;Manchester City;Aston Villa;4;1;Manchester City;;;
+9;Arsenal;Stoke City;3;1;Arsenal;;;
+9;Aston Villa;West Bromwich;1;2;West Bromwich;;;
+9;Newcastle Unite;Wigan Athletic;1;0;Newcastle Unite;;;
+9;Blackburn Rover;Tottenham;1;2;Tottenham;;;
+9;Bolton Wanderer;Sunderland;0;2;Sunderland;;;
+9;Fulham;Everton;1;3;Everton;;;
+9;Liverpool;Norwich City;1;1;;;;
+9;Wolverhampton W;Swansea City;2;2;;;;
+9;Queens Park Ran;Chelsea;1;0;Queens Park Ran;;;
+9;Manchester Unit;Manchester City;1;6;Manchester City;;;
+10;Manchester City;Wolverhampton W;3;1;Manchester City;;;
+10;Sunderland;Aston Villa;2;2;;;;
+10;Norwich City;Blackburn Rover;3;3;;;;
+10;Wigan Athletic;Fulham;0;2;Fulham;;;
+10;Swansea City;Bolton Wanderer;3;1;Swansea City;;;
+10;West Bromwich;Liverpool;0;2;Liverpool;;;
+10;Everton;Manchester Unit;0;1;Manchester Unit;;;
+10;Chelsea;Arsenal;3;5;Arsenal;;;
+10;Tottenham;Queens Park Ran;3;1;Tottenham;;;
+10;Stoke City;Newcastle Unite;1;3;Newcastle Unite;;;
+11;Arsenal;West Bromwich;3;0;Arsenal;;;
+11;Aston Villa;Norwich City;3;2;Aston Villa;;;
+11;Liverpool;Swansea City;0;0;;;;
+11;Manchester Unit;Sunderland;1;0;Manchester Unit;;;
+11;Blackburn Rover;Chelsea;0;1;Chelsea;;;
+11;Queens Park Ran;Manchester City;2;3;Manchester City;;;
+11;Newcastle Unite;Everton;2;1;Newcastle Unite;;;
+11;Bolton Wanderer;Stoke City;5;0;Bolton Wanderer;;;
+11;Fulham;Tottenham;1;3;Tottenham;;;
+11;Wolverhampton W;Wigan Athletic;3;1;Wolverhampton W;;;
+12;Norwich City;Arsenal;1;2;Arsenal;;;
+12;West Bromwich;Bolton Wanderer;2;1;West Bromwich;;;
+12;Wigan Athletic;Blackburn Rover;3;3;;;;
+12;Manchester City;Newcastle Unite;3;1;Manchester City;;;
+12;Sunderland;Fulham;0;0;;;;
+12;Everton;Wolverhampton W;2;1;Everton;;;
+12;Stoke City;Queens Park Ran;2;3;Queens Park Ran;;;
+12;Swansea City;Manchester Unit;0;1;Manchester Unit;;;
+12;Chelsea;Liverpool;1;2;Liverpool;;;
+12;Tottenham;Aston Villa;2;0;Tottenham;;;
+13;West Bromwich;Tottenham;1;2;Tottenham;;;
+13;Chelsea;Wolverhampton W;3;0;Chelsea;;;
+13;Norwich City;Queens Park Ran;2;1;Norwich City;;;
+13;Bolton Wanderer;Everton;0;2;Everton;;;
+13;Sunderland;Wigan Athletic;1;2;Wigan Athletic;;;
+13;Manchester Unit;Newcastle Unite;1;1;;;;
+13;Arsenal;Fulham;1;1;;;;
+13;Swansea City;Aston Villa;0;0;;;;
+13;Liverpool;Manchester City;1;1;;;;
+13;Stoke City;Blackburn Rover;3;1;Stoke City;;;
+14;Everton;Stoke City;0;1;Stoke City;;;
+14;Queens Park Ran;West Bromwich;1;1;;;;
+14;Newcastle Unite;Chelsea;0;3;Chelsea;;;
+14;Blackburn Rover;Swansea City;4;2;Blackburn Rover;;;
+14;Tottenham;Bolton Wanderer;3;0;Tottenham;;;
+14;Manchester City;Norwich City;5;1;Manchester City;;;
+14;Aston Villa;Manchester Unit;0;1;Manchester Unit;;;
+14;Wigan Athletic;Arsenal;0;4;Arsenal;;;
+14;Fulham;Liverpool;1;0;Fulham;;;
+14;Wolverhampton W;Sunderland;2;1;Wolverhampton W;;;
+15;Arsenal;Everton;1;0;Arsenal;;;
+15;Bolton Wanderer;Aston Villa;1;2;Aston Villa;;;
+15;Liverpool;Queens Park Ran;1;0;Liverpool;;;
+15;Manchester Unit;Wolverhampton W;4;1;Manchester Unit;;;
+15;Norwich City;Newcastle Unite;4;2;Norwich City;;;
+15;Swansea City;Fulham;2;0;Swansea City;;;
+15;West Bromwich;Wigan Athletic;1;2;Wigan Athletic;;;
+15;Sunderland;Blackburn Rover;2;1;Sunderland;;;
+15;Stoke City;Tottenham;2;1;Stoke City;;;
+15;Chelsea;Manchester City;2;1;Chelsea;;;
+16;Wolverhampton W;Stoke City;1;2;Stoke City;;;
+16;Everton;Norwich City;1;1;;;;
+16;Newcastle Unite;Swansea City;0;0;;;;
+16;Blackburn Rover;West Bromwich;1;2;West Bromwich;;;
+16;Fulham;Bolton Wanderer;2;0;Fulham;;;
+16;Wigan Athletic;Chelsea;1;1;;;;
+16;Queens Park Ran;Manchester Unit;0;2;Manchester Unit;;;
+16;Aston Villa;Liverpool;0;2;Liverpool;;;
+16;Tottenham;Sunderland;1;0;Tottenham;;;
+16;Manchester City;Arsenal;1;0;Manchester City;;;
+17;Wolverhampton W;Norwich City;2;2;;;;
+17;Blackburn Rover;Bolton Wanderer;1;2;Bolton Wanderer;;;
+17;Aston Villa;Arsenal;1;2;Arsenal;;;
+17;Manchester City;Stoke City;3;0;Manchester City;;;
+17;Newcastle Unite;West Bromwich;2;3;West Bromwich;;;
+17;Everton;Swansea City;1;0;Everton;;;
+17;Fulham;Manchester Unit;0;5;Manchester Unit;;;
+17;Queens Park Ran;Sunderland;2;3;Sunderland;;;
+17;Wigan Athletic;Liverpool;0;0;;;;
+17;Tottenham;Chelsea;1;1;;;;
+18;Chelsea;Fulham;1;1;;;;
+18;Bolton Wanderer;Newcastle Unite;0;2;Newcastle Unite;;;
+18;Liverpool;Blackburn Rover;1;1;;;;
+18;Manchester Unit;Wigan Athletic;5;0;Manchester Unit;;;
+18;Sunderland;Everton;1;1;;;;
+18;West Bromwich;Manchester City;0;0;;;;
+18;Stoke City;Aston Villa;0;0;;;;
+18;Arsenal;Wolverhampton W;1;1;;;;
+18;Swansea City;Queens Park Ran;1;1;;;;
+18;Norwich City;Tottenham;0;2;Tottenham;;;
+19;Liverpool;Newcastle Unite;3;1;Liverpool;;;
+19;Manchester Unit;Blackburn Rover;2;3;Blackburn Rover;;;
+19;Stoke City;Wigan Athletic;2;2;;;;
+19;Swansea City;Tottenham;1;1;;;;
+19;Bolton Wanderer;Wolverhampton W;1;1;;;;
+19;Arsenal;Queens Park Ran;1;0;Arsenal;;;
+19;Chelsea;Aston Villa;1;3;Aston Villa;;;
+19;West Bromwich;Everton;0;1;Everton;;;
+19;Sunderland;Manchester City;1;0;Sunderland;;;
+19;Norwich City;Fulham;1;1;;;;
+20;Blackburn Rover;Stoke City;1;2;Stoke City;;;
+20;Wolverhampton W;Chelsea;1;2;Chelsea;;;
+20;Queens Park Ran;Norwich City;1;2;Norwich City;;;
+20;Aston Villa;Swansea City;0;2;Swansea City;;;
+20;Fulham;Arsenal;2;1;Fulham;;;
+20;Wigan Athletic;Sunderland;1;4;Sunderland;;;
+20;Tottenham;West Bromwich;1;0;Tottenham;;;
+20;Manchester City;Liverpool;3;0;Manchester City;;;
+20;Newcastle Unite;Manchester Unit;3;0;Newcastle Unite;;;
+20;Everton;Bolton Wanderer;1;2;Bolton Wanderer;;;
+21;Chelsea;Sunderland;1;0;Chelsea;;;
+21;Liverpool;Stoke City;0;0;;;;
+21;Tottenham;Wolverhampton W;1;1;;;;
+21;Aston Villa;Everton;1;1;;;;
+21;Manchester Unit;Bolton Wanderer;3;0;Manchester Unit;;;
+21;West Bromwich;Norwich City;1;2;Norwich City;;;
+21;Blackburn Rover;Fulham;3;1;Blackburn Rover;;;
+21;Newcastle Unite;Queens Park Ran;1;0;Newcastle Unite;;;
+21;Swansea City;Arsenal;3;2;Swansea City;;;
+21;Wigan Athletic;Manchester City;0;1;Manchester City;;;
+22;Norwich City;Chelsea;0;0;;;;
+22;Everton;Blackburn Rover;1;1;;5,69;3,93;1,58
+22;Queens Park Ran;Wigan Athletic;3;1;Queens Park Ran;1,6;3,73;5,85
+22;Fulham;Newcastle Unite;5;2;Fulham;2,04;3,28;3,72
+22;Stoke City;West Bromwich;1;2;West Bromwich;1,94;3,37;3,92
+22;Sunderland;Swansea City;2;0;Sunderland;1,96;3,3;3,94
+22;Wolverhampton W;Aston Villa;2;3;Aston Villa;1,88;3,35;4,25
+22;Bolton Wanderer;Liverpool;3;1;Bolton Wanderer;2,63;3,15;2,72
+22;Manchester City;Tottenham;3;2;Manchester City;6,51;3,85;1,54
+22;Arsenal;Manchester Unit;1;2;Manchester Unit;1,86;3,52;4,15
+23;Wolverhampton W;Liverpool;0;3;Liverpool;2,66;3,28;2,64
+23;Swansea City;Chelsea;1;1;;4,8;3,55;1,75
+23;Tottenham;Wigan Athletic;3;1;Tottenham;4,13;3,29;1,92
+23;Sunderland;Norwich City;3;0;Sunderland;1,21;6,05;14,41
+23;Bolton Wanderer;Arsenal;0;0;;1,74;3,52;4,84
+23;Aston Villa;Queens Park Ran;2;2;;5,33;3,83;1,63
+23;Everton;Manchester City;1;0;Everton;1,82;3,42;4,49
+23;Fulham;West Bromwich;1;1;;4,34;3,45;1,83
+23;Blackburn Rover;Newcastle Unite;0;2;Newcastle Unite;1,82;3,45;4,44
+23;Manchester Unit;Stoke City;2;0;Manchester Unit;2,42;3,27;2,89
+24;Stoke City;Sunderland;0;1;Sunderland;1,33;4,86;9,6
+24;Arsenal;Blackburn Rover;7;1;Arsenal;2,24;3,21;3,25
+24;West Bromwich;Swansea City;1;2;Swansea City;1,28;5,38;10,59
+24;Norwich City;Bolton Wanderer;2;0;Norwich City;2,09;3,26;3,58
+24;Wigan Athletic;Everton;1;1;;2,04;3,36;3,63
+24;Queens Park Ran;Wolverhampton W;1;2;Wolverhampton W;3,79;3,52;2
+24;Manchester City;Fulham;3;0;Manchester City;1,96;3,37;3,88
+24;Newcastle Unite;Aston Villa;2;1;Newcastle Unite;1,3;5,13;10,31
+24;Chelsea;Manchester Unit;3;3;;2,09;3,29;3,62
+24;Liverpool;Tottenham;0;0;;2,65;3,24;2,67
+25;Manchester Unit;Liverpool;2;1;Manchester Unit;1,91;3,49;3,97
+25;Sunderland;Arsenal;1;2;Arsenal;1,92;3,37;4,1
+25;Fulham;Stoke City;2;1;Fulham;3,49;3,31;2,1
+25;Bolton Wanderer;Wigan Athletic;1;2;Wigan Athletic;1,94;3,33;3,99
+25;Swansea City;Norwich City;2;3;Norwich City;2,05;3,33;3,61
+25;Everton;Chelsea;2;0;Everton;1,78;3,52;4,52
+25;Blackburn Rover;Queens Park Ran;3;2;Blackburn Rover;3,09;3,2;2,33
+25;Tottenham;Newcastle Unite;5;0;Tottenham;2,2;3,3;3,23
+25;Wolverhampton W;West Bromwich;1;5;West Bromwich;1,49;4,1;6,76
+25;Aston Villa;Manchester City;0;1;Manchester City;2,61;3,15;2,74
+26;Liverpool;Everton;3;0;Liverpool;5,16;3,68;1,67
+26;Wigan Athletic;Aston Villa;0;0;;1,730;3,470;5,070
+26;Manchester City;Blackburn Rover;3;0;Manchester City;2,730;3,210;2,580
+26;Chelsea;Bolton Wanderer;3;0;Chelsea;1,150;7,390;17,080
+26;West Bromwich;Sunderland;4;0;West Bromwich;1,270;5,480;11,390
+26;Queens Park Ran;Fulham;0;1;Fulham;2,350;3,270;2,980
+26;Newcastle Unite;Wolverhampton W;2;2;;2,630;3,220;2,670
+26;Norwich City;Manchester Unit;1;2;Manchester Unit;1,520;4,010;6,510
+26;Arsenal;Tottenham;5;2;Arsenal;6,400;4,130;1,500
+26;Stoke City;Swansea City;2;0;Stoke City;2,370;3,310;2,940
+27;Manchester City;Bolton Wanderer;2;0;Manchester City;2,000;3,330;5,070
+27;Fulham;Wolverhampton W;5;0;Fulham;1,140;7,570;19,690
+27;West Bromwich;Chelsea;1;0;West Bromwich;1,620;3,710;5,640
+27;Stoke City;Norwich City;1;0;Stoke City;3,830;3,380;1,970
+27;Newcastle Unite;Sunderland;1;1;;1,890;3,390;4,140
+27;Liverpool;Arsenal;1;2;Arsenal;2,200;3,180;3,380
+27;Blackburn Rover;Aston Villa;1;1;;2,040;3,350;3,650
+27;Wigan Athletic;Swansea City;0;2;Swansea City;2,400;3,280;2,910
+27;Tottenham;Manchester Unit;1;3;Manchester Unit;2,530;3,190;2,790
+27;Queens Park Ran;Everton;1;1;;3,100;3,320;2,270
+28;Swansea City;Manchester City;1;0;Swansea City;2,920;3,200;2,420
+28;Norwich City;Wigan Athletic;1;1;;6,000;3,600;1,600
+28;Everton;Tottenham;1;0;Everton;1,800;3,600;4,000
+28;Bolton Wanderer;Queens Park Ran;2;1;Bolton Wanderer;2,800;3,200;2,500
+28;Arsenal;Newcastle Unite;2;1;Arsenal;2,400;3,250;2,900
+28;Wolverhampton W;Blackburn Rover;0;2;Blackburn Rover;1,450;4,300;6,750
+28;Sunderland;Liverpool;1;0;Sunderland;2,300;3,400;2,950
+28;Manchester Unit;West Bromwich;2;0;Manchester Unit;4,000;3,250;1,950
+28;Chelsea;Stoke City;1;0;Chelsea;1,300;5,000;10,000
+28;Aston Villa;Fulham;1;0;Aston Villa;1,380;4,400;8,500
+;;;;;;2,450;3,200;2,850
+;;;;;;8,500;4,750;1,350
+;;;;;;1,400;4,400;7,750
+;;;;;;1,650;3,800;5,000
+;;;;;;1,750;3,500;4,750
+;;;;;;2,400;3,250;2,900
+;;;;;;2,800;3,300;2,450
+;;;;;;4,400;3,500;1,800
+;;;;;;1,750;3,500;4,600
+;;;;;;2,950;3,250;2,350
+;;;;;;1,750;3,600;4,500
+;;;;;;1,800;3,600;4,200
+;;;;;;1,310;5,000;9,500
+;;;;;;2,350;3,250;2,950
+;;;;;;1,250;5,250;12,500
+;;;;;;1,720;3,750;4,500
+;;;;;;2,000;3,300;3,750
+;;;;;;2,100;3,100;3,700
+;;;;;;5,750;3,700;1,600
+;;;;;;2,250;3,200;3,200
+;;;;;;1,220;5,750;13,000
+;;;;;;4,400;3,500;1,800
+;;;;;;1,800;3,400;4,450
+;;;;;;1,650;3,600;5,250
+;;;;;;1,220;5,750;13,000
+;;;;;;5,750;4,000;1,550
+;;;;;;2,550;3,200;2,750
+;;;;;;2,350;3,200;3,000
+;;;;;;2,950;3,250;2,350
+;;;;;;1,400;4,330;8,000
+;;;;;;8,500;4,750;1,350
