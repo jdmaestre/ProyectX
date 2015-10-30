@@ -62,13 +62,15 @@ public class ProyectoX {
             String equipoL = rs.getString("HomeTeam");
             String equipoV = rs.getString("AwayTeam");
             String resultado = rs.getString("FTR");
-            Double cuotaL = rs.getDouble("B365H");
-            Double cuotaX = rs.getDouble("B365D");
-            Double cuotaV = rs.getDouble("B365A");
-            Double gapPME = 0.0;
+            double cuotaL = rs.getDouble("B365H");
+            double cuotaX = rs.getDouble("B365D");
+            double cuotaV = rs.getDouble("B365A");
+            double gapPME = 0.0;
             int gL = rs.getInt("FTHG");
             int gV = rs.getInt("FTAG");         
-            System.out.println(String.valueOf(rs.getRow()));
+            System.out.println("Patido # "+String.valueOf(rs.getRow()));
+            
+            System.out.println("Partido:" + equipoL + " - " + equipoV );
                             
             //Encontrar apuestas EV+ de los partidos
             String Bet = encontrarApuesta(equipoL, equipoV, cuotaL, cuotaX, cuotaV, gapPME, connection);
@@ -77,8 +79,9 @@ public class ProyectoX {
             jugarPartido(equipoL, equipoV, gL, gV, connection);
             
             //Realizar apuesta
-            realizarApuesta(resultado, cuotaL, cuotaX, cuotaV, Bet, Cuenta, ROI, aux);
-            System.out.println(String.valueOf(Cuenta));
+            Cuenta = realizarApuesta(resultado, cuotaL, cuotaX, cuotaV, Bet, Cuenta, ROI, aux);
+            System.out.println(String.valueOf("Dinero :" + Cuenta + "$"));
+            System.out.println(" ");
             
           }
           
@@ -118,8 +121,9 @@ public class ProyectoX {
         
         
         String Answer = "Z";
-        int Lpgl=0; int Lppl=0; int Lpe=0; int Lpgv=0; int Lppv=0; int Lpj=0; int Lpjl=0; int Lpjv=0;
-        int Vpgl=0; int Vppl=0; int Vpe=0; int Vpgv=0; int Vppv=0; int Vpj=0; int Vpjl=0; int Vpjv=0;
+        double Lpgl=0; double Lppl=0; double Lpe=0; double Lpgv=0; double Lppv=0; double Lpj=0;
+        double Lpjl=0; double Lpjv=0; double Vpgl=0; double Vppl=0; double Vpe=0; double Vpgv=0;
+        double Vppv=0; double Vpj=0; double Vpjl=0; double Vpjv=0;
         try{
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.   
@@ -141,6 +145,7 @@ public class ProyectoX {
                         Vpe = rsP.getInt("pe");      Vpgv = rsP.getInt("pgv");                    
                         Vppv = rsP.getInt("ppv");    Vpj = rsP.getInt("pj");
                         Vpjl = rsP.getInt("pjl");    Vpjv = rsP.getInt("pjv");
+                
                     }
                 }                   
                                 
@@ -151,6 +156,9 @@ public class ProyectoX {
             double L_pgl = (Lpgl/Lpjl); double L_pel = ((Lpjl-Lpgl-Lppl)/Lpjl);
             double L_ppl = (Lppl/Lpjl); double V_pgv = (Vpgv/Vpjv);
             double V_pev = ((Vpjl-Vpgl-Vppl)/Vpjl); double V_ppv = (Vppv/Vpjv);
+            
+            //System.out.println(String.valueOf(L_pgl + "´pgl"));
+            //System.out.println(String.valueOf(Vpgv));
             
                 //Calculo de probabilidad de que cada evento suceda
                     //Interseccion de eventos
@@ -167,19 +175,19 @@ public class ProyectoX {
                     //Seleccion de la mejor apuesta
             double aux = gapWL;
             
-            System.out.println(String.valueOf(gapWL));
-            System.out.println(String.valueOf(gapX));
-            System.out.println(String.valueOf(gapWV));
+            System.out.printf("EVLocal: %.3f |", gapWL);
+            System.out.printf("EVEmpate: %.3f |", gapX);
+            System.out.printf("EVVisitante: %.3f |%n", gapWV);
             
             if (aux>=gapPME) {
-                Answer = "L";
+                Answer = "H";
             }
             if (gapX>aux && gapX>gapPME) {
                 aux = gapX;
-                Answer = "X";
+                Answer = "D";
             }
             if (gapWV>aux && gapWV>gapPME) {
-                Answer = "V";
+                Answer = "A";
             }          
          
                                
@@ -211,7 +219,7 @@ public static void jugarPartido(String equipoL, String equipoV, int gL,
             statement3.setQueryTimeout(30);  // set timeout to 30 sec.
             ResultSet rsP = statement2.executeQuery("select * from Posiciones");
               if (gL > gV) {
-                  System.out.println("Local");
+                  //System.out.println("Local");
                   //------------------------Codigo si gana Local--------------------------------
                   while (rsP.next()){
                       
@@ -283,7 +291,7 @@ public static void jugarPartido(String equipoL, String equipoV, int gL,
                   
               }else{
                   if (gL == gV) {
-                      System.out.println("Empate");
+                      //System.out.println("Empate");
                       //---------------------------Codigo si empatan------------------------------
                       
                       while (rsP.next()){
@@ -356,7 +364,7 @@ public static void jugarPartido(String equipoL, String equipoV, int gL,
                   }   
                       
                   }else{
-                      System.out.println("Visitante");
+                      //System.out.println("Visitante");
                       //-------------------------Codigo si gana Visitante------------------------------
                        
                        while (rsP.next()){
@@ -445,29 +453,39 @@ public static void jugarPartido(String equipoL, String equipoV, int gL,
     }
 
 
-public static void realizarApuesta (String resultado, double cuotaL,
+public static double realizarApuesta (String resultado, double cuotaL,
                                         double cuotaE, double cuotaV,
                                         String Bet, double Cuenta, double ROI, double aux){
     
-    System.out.println("Resultado: " + resultado + " | Bet: " +Bet );
+    System.out.println("Resultado: " + resultado + " | Sugerencia Bet: " +Bet );
+    //System.out.println(String.valueOf(Cuenta + " Cuenta"));
     
     if (resultado.equals(Bet)) {
                
         switch(Bet){
-            case "L": Cuenta = Cuenta + (cuotaL*1);
+            case "H": Cuenta = Cuenta + (cuotaL*1);
                 break;
-            case "X": Cuenta = Cuenta + (cuotaE*1);
+            case "D": Cuenta = Cuenta + (cuotaE*1);
                 break;
-            case "V": Cuenta = Cuenta + (cuotaV*1);
+            case "A": Cuenta = Cuenta + (cuotaV*1);
                 break;
-        }                        
+               
+        }                      
         
-        ROI = Cuenta / aux;
+        
         
     }else{
-    
+        if (Bet.equals("Z")) {
+            
+        }else{
             Cuenta = Cuenta - 1;
+        }
+    
+            
     }
+    
+    return Cuenta;
+    
 
 }
 }
