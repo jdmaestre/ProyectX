@@ -23,15 +23,19 @@ public class ProyectoX {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        JFrame form = new JFrame();
-        form.setVisible(true);
         
+        double Cuenta = 0;
+        double ROI = 0;
+        int aux = 0;
+        
+        JFrame form = new JFrame();
+        form.setVisible(true);        
         
         Connection connection = null;
         try
         {
           // create a database connection
-          connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/Jose/Documents/NetBeansProjects/Proyecto X/BdPrueba.sqlite");
+          connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/Jose/Documents/NetBeansProjects/Proyecto_X/BdPrueba.sqlite");
           Statement statement = connection.createStatement();
           Statement statement2 = connection.createStatement();
           Statement statement3 = connection.createStatement();
@@ -42,28 +46,39 @@ public class ProyectoX {
           
                    
           //Crear tabla de posiciones
-          ResultSet rs = statement.executeQuery("select * from PL");
+          ResultSet rs = statement.executeQuery("select * from E0");
+       
+          //statement2.executeUpdate("CREATE TABLE Posiciones (equipo VARCHAR, pj INTEGER, pjl INTEGER, pjv INTEGER,"
+          //        + " pg INTEGER, pgl INTEGER, pgv INTEGER, pe INTEGER, pel INTEGER, pev INTEGER, pp INTEGER,"
+          //        + " ppl INTEGER, ppv INTEGER, gf INTEGER, gc INTEGER, gd INTEGER, pts INTEGER)");
+          
+          System.out.println(String.valueOf("tt"));
                   
           while(rs.next())
           {
             // read the result set
             //System.out.println("name = " + rs.getString("name"));
             //System.out.println("id = " + rs.getInt("gL"));
-            String equipoL = rs.getString("equipoL");
-            String equipoV = rs.getString("equipoV");
-            Double cuotaL = rs.getDouble("Blocal");
-            Double cuotaX = rs.getDouble("Btied");
-            Double cuotaV = rs.getDouble("Baway");
+            String equipoL = rs.getString("HomeTeam");
+            String equipoV = rs.getString("AwayTeam");
+            String resultado = rs.getString("FTR");
+            Double cuotaL = rs.getDouble("B365H");
+            Double cuotaX = rs.getDouble("B365D");
+            Double cuotaV = rs.getDouble("B365A");
             Double gapPME = 0.0;
-            int gL = rs.getInt("gL");
-            int gV = rs.getInt("gV");         
+            int gL = rs.getInt("FTHG");
+            int gV = rs.getInt("FTAG");         
             System.out.println(String.valueOf(rs.getRow()));
                             
             //Encontrar apuestas EV+ de los partidos
-            //String Bet = encontrarApuesta(equipoL, equipoV, cuotaL, cuotaX, cuotaV, gapPME, connection);
+            String Bet = encontrarApuesta(equipoL, equipoV, cuotaL, cuotaX, cuotaV, gapPME, connection);
                                     
             //"Jugar el partido"
-              String Ganador = jugarPartido(equipoL, equipoV, gL, gV, connection);
+            jugarPartido(equipoL, equipoV, gL, gV, connection);
+            
+            //Realizar apuesta
+            realizarApuesta(resultado, cuotaL, cuotaX, cuotaV, Bet, Cuenta, ROI, aux);
+            System.out.println(String.valueOf(Cuenta));
             
           }
           
@@ -99,7 +114,9 @@ public class ProyectoX {
     
     public static String encontrarApuesta (String Equipo_local,  String Equipo_visitante, Double Cuota_local,
                                             Double Cuota_empate, Double Cuota_visitante, Double gapPME, Connection connection)
-    {    
+    {          
+        
+        
         String Answer = "Z";
         int Lpgl=0; int Lppl=0; int Lpe=0; int Lpgv=0; int Lppv=0; int Lpj=0; int Lpjl=0; int Lpjv=0;
         int Vpgl=0; int Vppl=0; int Vpe=0; int Vpgv=0; int Vppv=0; int Vpj=0; int Vpjl=0; int Vpjv=0;
@@ -149,6 +166,11 @@ public class ProyectoX {
             double gapWV = ProbWV - (1/Cuota_visitante) ;
                     //Seleccion de la mejor apuesta
             double aux = gapWL;
+            
+            System.out.println(String.valueOf(gapWL));
+            System.out.println(String.valueOf(gapX));
+            System.out.println(String.valueOf(gapWV));
+            
             if (aux>=gapPME) {
                 Answer = "L";
             }
@@ -164,7 +186,7 @@ public class ProyectoX {
            
         }
         
-        catch(SQLException e){
+        catch(Exception e){
             
                 }
         finally{
@@ -177,7 +199,7 @@ public class ProyectoX {
         
     }
     
-public static  String jugarPartido(String equipoL, String equipoV, int gL,
+public static void jugarPartido(String equipoL, String equipoV, int gL,
                                         int gV, Connection connection){
         
            
@@ -383,7 +405,7 @@ public static  String jugarPartido(String equipoL, String equipoV, int gL,
                         //Partidos jugados como local
                         int pjl = rsP.getInt("pjl"); pjl = pjl + 1;                        
                                               
-                        // Partidos Perdidos como local
+                        // Partidos Perdidos
                         int pp = rsP.getInt("pp"); pp = pp + 1; 
                         // Partidos Perdidos como local
                         int ppl = rsP.getInt("ppl"); ppl = ppl + 1;                        
@@ -419,6 +441,37 @@ public static  String jugarPartido(String equipoL, String equipoV, int gL,
         
         }
         
-        return "L";
-    }}
+      
+    }
+
+
+public static void realizarApuesta (String resultado, double cuotaL,
+                                        double cuotaE, double cuotaV,
+                                        String Bet, double Cuenta, double ROI, double aux){
+    
+    System.out.println("Resultado: " + resultado + " | Bet: " +Bet );
+    
+    if (resultado.equals(Bet)) {
+               
+        switch(Bet){
+            case "L": Cuenta = Cuenta + (cuotaL*1);
+                break;
+            case "X": Cuenta = Cuenta + (cuotaE*1);
+                break;
+            case "V": Cuenta = Cuenta + (cuotaV*1);
+                break;
+        }                        
+        
+        ROI = Cuenta / aux;
+        
+    }else{
+    
+            Cuenta = Cuenta - 1;
+    }
+
+}
+}
+
+
+
 
