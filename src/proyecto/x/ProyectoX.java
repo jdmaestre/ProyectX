@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JLabel;
+
 
 /**
  *
@@ -22,38 +24,76 @@ public class ProyectoX {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
-        double Cuenta = 0;
-        double ROI = 0;
-        int aux = 0;
+        // TODO code application logic here       
+       
         
         JFrame form = new JFrame();
         form.setVisible(true);        
         
+        //simularTemporada();        
+        
+        
+    }
+    
+public void simularTemporada (String liga, double criterioPME, JLabel totalAcumulado, JLabel NumApuestas){
+    
         Connection connection = null;
+        double acumulado = Double.valueOf(totalAcumulado.getText().replaceAll(",","."));
+        int acumuladoApuestas = Integer.parseInt(NumApuestas.getText());
+        
         try
         {
-          // create a database connection
-          connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/Jose/Documents/NetBeansProjects/Proyecto_X/BdPrueba.sqlite");
-          Statement statement = connection.createStatement();
-          Statement statement2 = connection.createStatement();
-          Statement statement3 = connection.createStatement();
+          double Cuenta = 0;
+          double ROI = 0;
+          int Avalidas = 0;
+          int aux = 0; 
+            
+          // create a database connection          
+          connection = DriverManager.getConnection("jdbc:sqlite:BdPrueba.sqlite");
+          Statement statement = connection.createStatement();  
           statement.setQueryTimeout(30);  // set timeout to 30 sec.
+          Statement statement2 = connection.createStatement();  
           statement2.setQueryTimeout(30);  // set timeout to 30 sec.
-          statement3.setQueryTimeout(30);  // set timeout to 30 sec.
-
-          
-                   
+                     
           //Crear tabla de posiciones
-          ResultSet rs = statement.executeQuery("select * from E0");
+          ResultSet rs = statement.executeQuery("select * from " + liga);
        
-          //statement2.executeUpdate("CREATE TABLE Posiciones (equipo VARCHAR, pj INTEGER, pjl INTEGER, pjv INTEGER,"
-          //        + " pg INTEGER, pgl INTEGER, pgv INTEGER, pe INTEGER, pel INTEGER, pev INTEGER, pp INTEGER,"
-          //        + " ppl INTEGER, ppv INTEGER, gf INTEGER, gc INTEGER, gd INTEGER, pts INTEGER)");
+          statement2.executeUpdate("drop table if exists Posiciones");
+          statement2.executeUpdate("CREATE TABLE \"Posiciones\" (\"equipo\" , \"pj\" INTEGER NOT NULL DEFAULT 0,"
+                  + " \"pjl\" INTEGER DEFAULT 0, \"pjv\" INTEGER DEFAULT 0, \"pg\" , \"pgl\" , \"pgv\" , \"pe\" ,"
+                  + " \"pel\" , \"pev\" , \"pp\" , \"ppl\" , \"ppv\" , \"gf\" , \"gc\" , \"gd\" , \"pts\" )");
           
-          System.out.println(String.valueOf("tt"));
+          String[] Array = new String[20];
+          int i = 0;
+          
+          while (i < 20) {
+              int sw = 0 ;                
+              String equipoL = rs.getString("HomeTeam");
+              for (int j = 0; j < 20; j++) {
                   
+                  if (equipoL.equals(Array[j]))  {
+                      
+                      sw = 1;                        
+                  }
+                  
+              }
+              if (sw == 0) {
+                  
+                  Array[i] = equipoL; 
+                  i = i + 1;
+              }
+              rs.next();
+              
+                
+          }
+          
+            for (i = 0; i < 20; i++) {
+                statement2.executeUpdate("INSERT INTO Posiciones (equipo) VALUES  ('" + Array[i] +"');");
+                
+            }
+            
+            
+          rs = statement.executeQuery("select * from " + liga);           
           while(rs.next())
           {
             // read the result set
@@ -65,25 +105,39 @@ public class ProyectoX {
             double cuotaL = rs.getDouble("B365H");
             double cuotaX = rs.getDouble("B365D");
             double cuotaV = rs.getDouble("B365A");
-            double gapPME = 0.0;
+            double gapPME = criterioPME;
             int gL = rs.getInt("FTHG");
             int gV = rs.getInt("FTAG");         
-            System.out.println("Patido # "+String.valueOf(rs.getRow()));
+            System.out.println("Patido # "+String.valueOf(rs.getRow()));            
+            System.out.println("Partido:" + equipoL + " - " + equipoV );                            
+            System.out.printf("CuotaH: %.2f |", cuotaL);
+            System.out.printf("CuotaX: %.2f |", cuotaX);
+            System.out.printf("CuotaA: %.2f |%n", cuotaV);
             
-            System.out.println("Partido:" + equipoL + " - " + equipoV );
-                            
             //Encontrar apuestas EV+ de los partidos
             String Bet = encontrarApuesta(equipoL, equipoV, cuotaL, cuotaX, cuotaV, gapPME, connection);
+            
+              if (Bet.equals("H") || Bet.equals("X") || Bet.equals("A")) {
+                  
+                  Avalidas = Avalidas +1;
+                                    
+              }
+              System.out.println("Apuestas realizadas: " + String.valueOf(Avalidas));
+              NumApuestas.setText(String.valueOf(Avalidas  + acumuladoApuestas));
                                     
             //"Jugar el partido"
             jugarPartido(equipoL, equipoV, gL, gV, connection);
             
+           
             //Realizar apuesta
             Cuenta = realizarApuesta(resultado, cuotaL, cuotaX, cuotaV, Bet, Cuenta, ROI, aux);
-            System.out.println(String.valueOf("Dinero :" + Cuenta + "$"));
+            System.out.println(String.valueOf("Dinero :" + (Cuenta) + "$"));
+            totalAcumulado.setText(String.format("%.2f", Cuenta + acumulado));
             System.out.println(" ");
             
           }
+          
+          statement2.executeUpdate("DROP TABLE Posiciones");
           
         }
         catch(SQLException e)
@@ -107,15 +161,9 @@ public class ProyectoX {
             System.err.println(e);
           }
         }
-        
-        
-        
-        
-        
-        
     }
     
-    public static String encontrarApuesta (String Equipo_local,  String Equipo_visitante, Double Cuota_local,
+public static String encontrarApuesta (String Equipo_local,  String Equipo_visitante, Double Cuota_local,
                                             Double Cuota_empate, Double Cuota_visitante, Double gapPME, Connection connection)
     {          
         
@@ -463,11 +511,11 @@ public static double realizarApuesta (String resultado, double cuotaL,
     if (resultado.equals(Bet)) {
                
         switch(Bet){
-            case "H": Cuenta = Cuenta + (cuotaL*1);
+            case "H": Cuenta = Cuenta + (cuotaL*1) - 1;
                 break;
-            case "D": Cuenta = Cuenta + (cuotaE*1);
+            case "D": Cuenta = Cuenta + (cuotaE*1) -1 ;
                 break;
-            case "A": Cuenta = Cuenta + (cuotaV*1);
+            case "A": Cuenta = Cuenta + (cuotaV*1) -1;
                 break;
                
         }                      
