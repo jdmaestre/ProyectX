@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 
 /**
@@ -35,9 +37,10 @@ public class ProyectoX {
         
     }
     
-public void simularTemporada (String liga, double criterioPME, JLabel totalAcumulado, JLabel NumApuestas){
+public void simularTemporada (String liga, double criterioPME, JLabel totalAcumulado, JLabel NumApuestas, JTextArea output ){
     
         Connection connection = null;
+        Metodos_Simulacion ms = new Metodos_Simulacion();
         double acumulado = Double.valueOf(totalAcumulado.getText().replaceAll(",","."));
         int acumuladoApuestas = Integer.parseInt(NumApuestas.getText());
         
@@ -91,7 +94,7 @@ public void simularTemporada (String liga, double criterioPME, JLabel totalAcumu
                 statement2.executeUpdate("INSERT INTO Posiciones (equipo) VALUES  ('" + Array[i] +"');");
                 
             }
-            
+           
             
           rs = statement.executeQuery("select * from " + liga);           
           while(rs.next())
@@ -115,7 +118,7 @@ public void simularTemporada (String liga, double criterioPME, JLabel totalAcumu
             System.out.printf("CuotaA: %.2f |%n", cuotaV);
             
             //Encontrar apuestas EV+ de los partidos
-            String Bet = encontrarApuesta(equipoL, equipoV, cuotaL, cuotaX, cuotaV, gapPME, connection);
+            String Bet = ms.metodoBasico(equipoL, equipoV, cuotaL, cuotaX, cuotaV, gapPME, connection);
             
               if (Bet.equals("H") || Bet.equals("X") || Bet.equals("A")) {
                   
@@ -163,97 +166,7 @@ public void simularTemporada (String liga, double criterioPME, JLabel totalAcumu
         }
     }
     
-public static String encontrarApuesta (String Equipo_local,  String Equipo_visitante, Double Cuota_local,
-                                            Double Cuota_empate, Double Cuota_visitante, Double gapPME, Connection connection)
-    {          
-        
-        
-        String Answer = "Z";
-        double Lpgl=0; double Lppl=0; double Lpe=0; double Lpgv=0; double Lppv=0; double Lpj=0;
-        double Lpjl=0; double Lpjv=0; double Vpgl=0; double Vppl=0; double Vpe=0; double Vpgv=0;
-        double Vppv=0; double Vpj=0; double Vpjl=0; double Vpjv=0;
-        try{
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);  // set timeout to 30 sec.   
-            
-            ResultSet rsP = statement.executeQuery("select * from Posiciones");
-            
-            while(rsP.next()){
-                //Sacar ls datos que se consideren necesarios de cada equipo
-                if (rsP.getString("equipo").equals(Equipo_local)) {
-                //Sacar los datos del equipo local    
-                    Lpgl = rsP.getInt("pgl");    Lppl = rsP.getInt("ppl");
-                    Lpe = rsP.getInt("pe");      Lpgv = rsP.getInt("pgv");                    
-                    Lppv = rsP.getInt("ppv");    Lpj = rsP.getInt("pj");
-                    Lpjl = rsP.getInt("pjl");    Lpjv = rsP.getInt("pjv");
-                }else{
-                    if(rsP.getString("equipo").equals(Equipo_visitante)){
-                //Sacar lo datos del equipo visitante    
-                        Vpgl = rsP.getInt("pgl");    Vppl = rsP.getInt("ppl");
-                        Vpe = rsP.getInt("pe");      Vpgv = rsP.getInt("pgv");                    
-                        Vppv = rsP.getInt("ppv");    Vpj = rsP.getInt("pj");
-                        Vpjl = rsP.getInt("pjl");    Vpjv = rsP.getInt("pjv");
-                
-                    }
-                }                   
-                                
-            }
-            //Aplicar criterios que se consideren necesarios para las apuestas
-            
-            //Calculo de los datos porcentuales de cada evento
-            double L_pgl = (Lpgl/Lpjl); double L_pel = ((Lpjl-Lpgl-Lppl)/Lpjl);
-            double L_ppl = (Lppl/Lpjl); double V_pgv = (Vpgv/Vpjv);
-            double V_pev = ((Vpjl-Vpgl-Vppl)/Vpjl); double V_ppv = (Vppv/Vpjv);
-            
-            //System.out.println(String.valueOf(L_pgl + "´pgl"));
-            //System.out.println(String.valueOf(Vpgv));
-            
-                //Calculo de probabilidad de que cada evento suceda
-                    //Interseccion de eventos
-            double WLxLV = (L_pgl*V_ppv); double XLxXV = (L_pel*V_pev);
-            double LLxWV =(L_ppl*V_pgv);  
-                    //Calculo probabilidad de cada evento
-            double ProbWL = (WLxLV)/(WLxLV+XLxXV+LLxWV);
-            double ProbX = (XLxXV)/(WLxLV+XLxXV+LLxWV);
-            double ProbWV = (LLxWV)/(WLxLV+XLxXV+LLxWV);
-                    //Calculo de Expected Value 
-            double gapWL = ProbWL - (1/Cuota_local) ;
-            double gapX = ProbX - (1/Cuota_empate) ;
-            double gapWV = ProbWV - (1/Cuota_visitante) ;
-                    //Seleccion de la mejor apuesta
-            double aux = gapWL;
-            
-            System.out.printf("EVLocal: %.3f |", gapWL);
-            System.out.printf("EVEmpate: %.3f |", gapX);
-            System.out.printf("EVVisitante: %.3f |%n", gapWV);
-            
-            if (aux>=gapPME) {
-                Answer = "H";
-            }
-            if (gapX>aux && gapX>gapPME) {
-                aux = gapX;
-                Answer = "D";
-            }
-            if (gapWV>aux && gapWV>gapPME) {
-                Answer = "A";
-            }          
-         
-                               
-           
-        }
-        
-        catch(Exception e){
-            
-                }
-        finally{
-                    
-                }
-        // L=Local , X=Empare, V=Visitante, Z=Ninguna apuesta cumplio los parametros
-        return Answer;
-        
-        
-        
-    }
+
     
 public static void jugarPartido(String equipoL, String equipoV, int gL,
                                         int gV, Connection connection){

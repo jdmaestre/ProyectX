@@ -5,15 +5,22 @@
  */
 package proyecto.x;
 
+import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 /**
@@ -30,6 +37,8 @@ public class JFrame extends javax.swing.JFrame {
         
         //jProgressBar1.setVisible(false);
         llenarligaCB(ligaComboBox);
+        
+        setIcon();
         
         
     }
@@ -62,9 +71,14 @@ public class JFrame extends javax.swing.JFrame {
         reset_btn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         pme_ComboBox = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        output_TextArea = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         javax.swing.JMenuItem importPL_bd = new javax.swing.JMenuItem();
+        printOutput_MenuItem = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        simularTodo_MenuITem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proyecto X");
@@ -87,6 +101,8 @@ public class JFrame extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Basico" }));
 
         jProgressBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jProgressBar1.setString("");
+        jProgressBar1.setStringPainted(true);
 
         jLabel1.setText("Liga:");
 
@@ -121,14 +137,18 @@ public class JFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(totalA_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nApuestas_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(reset_btn))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(totalA_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(nApuestas_Label, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                                .addGap(104, 104, 104)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(reset_btn))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,6 +169,10 @@ public class JFrame extends javax.swing.JFrame {
 
         pme_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "5", "10", "15", "20", "25", "30" }));
 
+        output_TextArea.setColumns(20);
+        output_TextArea.setRows(5);
+        jScrollPane1.setViewportView(output_TextArea);
+
         jMenu1.setText("File");
 
         importPL_bd.setText("Importar BD");
@@ -159,7 +183,27 @@ public class JFrame extends javax.swing.JFrame {
         });
         jMenu1.add(importPL_bd);
 
+        printOutput_MenuItem.setText("Crear Output");
+        printOutput_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printOutput_MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(printOutput_MenuItem);
+
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Simulacion");
+
+        simularTodo_MenuITem.setText("Simular Todo");
+        simularTodo_MenuITem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simularTodo_MenuITemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(simularTodo_MenuITem);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -167,6 +211,7 @@ public class JFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,21 +219,23 @@ public class JFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(simular_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ligaComboBox, 0, 140, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pme_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(simular_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ligaComboBox, 0, 140, Short.MAX_VALUE)
+                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(pme_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
-            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,17 +248,19 @@ public class JFrame extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ligaComboBox))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox2)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(pme_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(pme_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
                         .addComponent(simular_btn))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -257,17 +306,20 @@ public class JFrame extends javax.swing.JFrame {
             criterioPME = criterioPME / 100;                        
             
             ProyectoX px = new ProyectoX();
-            jProgressBar1.setVisible(true);
             jProgressBar1.setIndeterminate(true);
-            simular_btn.setEnabled(false);   
+            jProgressBar1.setString("Simulando " + liga.replace("_", " 20"));
+            simular_btn.setEnabled(false);             
             reset_btn.setEnabled(false);
+            simularTodo_MenuITem.setEnabled(false);
             form.setDefaultCloseOperation(0);
             
-            px.simularTemporada(liga, criterioPME, totalA_Label, nApuestas_Label);
+            px.simularTemporada(liga, criterioPME, totalA_Label, nApuestas_Label, output_TextArea);
             
-            jProgressBar1.setIndeterminate(false);            
+            jProgressBar1.setIndeterminate(false); 
+            jProgressBar1.setString(" ");
             simular_btn.setEnabled(true);
             reset_btn.setEnabled(true);
+            simularTodo_MenuITem.setEnabled(true);
             form.setDefaultCloseOperation(EXIT_ON_CLOSE);
             
             
@@ -277,6 +329,61 @@ public class JFrame extends javax.swing.JFrame {
       
         
     }//GEN-LAST:event_simular_btnMouseClicked
+
+    private void printOutput_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printOutput_MenuItemActionPerformed
+        // TODO add your handling code here:
+        
+        PrintStream out;
+        try {
+            out = new PrintStream(new FileOutputStream("output.txt"));
+            System.setOut(out);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_printOutput_MenuItemActionPerformed
+
+    private void simularTodo_MenuITemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simularTodo_MenuITemActionPerformed
+        // TODO add your handling code here:
+        new Thread(new Runnable() {
+        @Override
+        public void run() {
+            
+            JFrame form = JFrame.this;       
+            double numLigas = ligaComboBox.getItemCount();
+            double criterioPME = Integer.parseInt(pme_ComboBox.getSelectedItem().toString());
+            criterioPME = criterioPME / 100;
+
+            form.setDefaultCloseOperation(1);
+            simular_btn.setEnabled(false);             
+            reset_btn.setEnabled(false);
+            simularTodo_MenuITem.setEnabled(false);
+            jProgressBar1.setIndeterminate(true);
+
+            ProyectoX px = new ProyectoX();        
+            for (int i = 0; i < numLigas; i++) {
+               String nomLiga = String.valueOf(ligaComboBox.getItemAt(i));
+               jProgressBar1.setString("Simulando " + nomLiga.replace("_", " 20"));
+               px.simularTemporada(nomLiga, criterioPME, totalA_Label, nApuestas_Label, output_TextArea);
+
+            }        
+            jProgressBar1.setIndeterminate(false);
+            jProgressBar1.setString(" ");
+            simular_btn.setEnabled(true);             
+            reset_btn.setEnabled(true);
+            simularTodo_MenuITem.setEnabled(true);
+            form.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            
+            
+            
+            }
+        }).start();
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_simularTodo_MenuITemActionPerformed
 
     private void reset_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_btnActionPerformed
         // TODO add your handling code here:
@@ -380,14 +487,23 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox ligaComboBox;
     private javax.swing.JLabel nApuestas_Label;
+    private javax.swing.JTextArea output_TextArea;
     private javax.swing.JComboBox pme_ComboBox;
+    private javax.swing.JMenuItem printOutput_MenuItem;
     private javax.swing.JButton reset_btn;
+    private javax.swing.JMenuItem simularTodo_MenuITem;
     private javax.swing.JButton simular_btn;
     private javax.swing.JLabel totalA_Label;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("X.png")));
+    }
 }
